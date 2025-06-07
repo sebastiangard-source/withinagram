@@ -1,10 +1,12 @@
+# services/auth.py
+
 from flask import Blueprint, render_template, request, session, redirect, url_for, flash
 import requests
 from services.database import get_rest_headers, SUPABASE_AUTH_URL, SUPABASE_REST_URL
 from utils.helpers import sanitize_username
 from models.user import fetch_username
 
-auth_bp = Blueprint("auth", __name__)
+auth_bp = Blueprint("auth", __name__, url_prefix="")
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
