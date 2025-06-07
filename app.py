@@ -2,7 +2,7 @@ from flask import Flask
 from dotenv import load_dotenv
 import os
 
-from routes.main import main_bp
+from main import main_bp
 
 load_dotenv()
 
