@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up / Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 1em;
+      text-align: center;
+    }
+
+    input[type="email"], input[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 0.7em;
+      margin: 0.5em 0;
+      font-size: 1em;
+    }
+
+    .form-errors {
+      color: red;
+      margin-bottom: 1em;
+    }
+
+    p {
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sign Up / Login</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="form-errors">
+          {% for message in messages %}
+            <p class="error">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if not email_sent %}
+      <form method="POST">
+        <input type="hidden" name="step" value="check_email">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="submit" value="{{ 'Next' if not email_sent else 'Send Magic Link' }}">
+      </form>
+    {% else %}
+      <p>✅ Magic link sent! Check your email.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

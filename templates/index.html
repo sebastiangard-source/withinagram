@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Reverse a String</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 1rem;
+        margin: 0;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1.1rem;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1.1rem;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      th, td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: left;
+      }
+
+      .form-errors {
+        color: red;
+        margin-bottom: 1rem;
+      }
+    </style>
+    <script>
+      window.onload = function() {
+        const input = document.querySelector('input[name="text"]');
+        if (input) {
+          input.focus();
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      {% if username %}
+        <h2>Welcome, {{ username }}!</h2>
+      {% endif %}
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="form-errors">
+            {% for message in messages %}
+              <p class="error">{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <h2>Reverse a String</h2>
+
+      <form method="post">
+        <input name="text" type="text" placeholder="Enter a word..." required>
+        <input type="submit" value="Reverse">
+      </form>
+
+      {% if result %}
+        <h3>Reversed Result:</h3>
+        <p><strong>{{ result }}</strong></p>
+      {% endif %}
+
+      {% if submissions %}
+        <h3>Submission History</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Original</th>
+              <th>Reversed</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in submissions %}
+              <tr>
+                <td>{{ row.input }}</td>
+                <td>{{ row.reversed }}</td>
+                <td>{{ row.timestamp[:19] }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% if leaderboard %}
+        <h3>Leaderboard</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>User Name</th>
+              <th>Reversed Words</th>
+              <th>Pallindromes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in leaderboard %}
+              <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.count }}</td>
+                <td>{{ row.palindromes }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+  </body>
+</html>
