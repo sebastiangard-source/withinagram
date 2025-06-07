@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, flash
 from models.user import fetch_username
-from services.database import supabase
 from utils.word_tools import process_submission
-from utils.helpers import is_valid_word, is_palindrome
+from utils.word_tools import is_valid_word
+from models.submission import fetch_user_submissions, fetch_leaderboard
+
 
 main_bp = Blueprint("main", __name__)
 
@@ -29,3 +30,5 @@ def reverse_string():
         submissions=submissions,
         leaderboard=leaderboard
     )
+
+#
